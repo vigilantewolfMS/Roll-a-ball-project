@@ -9,15 +9,27 @@ public class PlayerController : MonoBehaviour {
 	public float speed;
 	private int count;
 	public Text countText;
+	public Text winText;
+	public float distToGround = 0.5f;
+	private bool isGrounded;
+	public int jumpForce = 50;
 	
 	void Start(){
 		rb = GetComponent<Rigidbody>();
 		count = 0;
 		SetCountText();
+		winText.text = "";
 	}
 
 	void FixedUpdate()
 	{
+		isGrounded = Physics.Raycast (transform.position, Vector3.down, distToGround);
+
+			if(Input.GetKey(KeyCode.Space) && isGrounded){
+				rb.AddForce(0,jumpForce,0);
+			}
+
+			
 		float moveHorizontal = Input.GetAxis("Horizontal");
 		float moveVertical = Input.GetAxis("Vertical");
 		
@@ -25,8 +37,10 @@ public class PlayerController : MonoBehaviour {
 		
 		rb.AddForce (movement * speed);
 	}
+
+
 	
-	void OnTriggerEnter(Collider other){
+void OnTriggerEnter(Collider other){
 		if(other.gameObject.CompareTag("Pick Up"))
 		{
 			other.gameObject.SetActive(false);
@@ -37,5 +51,11 @@ public class PlayerController : MonoBehaviour {
 	}
 	void SetCountText(){
 		countText.text = "Count: "+ count.ToString();
+		if (count>=12)
+		{
+			winText.text = "You Win!";
+		}
 	}
+			
+
 }

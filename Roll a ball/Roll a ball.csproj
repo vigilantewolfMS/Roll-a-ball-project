@@ -79,6 +79,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Camera_motion.cs" />
+    <Compile Include="Assets\Scripts\MoveBackAndForth.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\Rotater.cs" />
   </ItemGroup>
